@@ -1,20 +1,15 @@
-import { createStore, applyMiddleware } from 'redux';
+import { compose, createStore, applyMiddleware } from 'redux';
 import promise from 'redux-promise-middleware';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
-
-const initState = {
-    user: {},
-    fetched: false,
-}
-
-const reducer = (state=initState, action) => {
-    switch(action.type) {
-        default: return state;
-    }
-};
+import reducers from './reducers';
 
 const middleware = applyMiddleware(promise(), thunk, logger());
-const store = createStore(reducer, middleware);
+const store = createStore(reducers,
+    compose(
+        middleware,
+        window.devToolsExtension ? window.devToolsExtension() : f => f
+    )
+);
 
 export default store;

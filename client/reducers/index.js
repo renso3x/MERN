@@ -1,9 +1,11 @@
-import { combinReducers } from 'redux';
+import { combineReducers } from 'redux';
 
 import user from './user';
+import flashMessages from './flashMessages';
 
-const reducers = combinReducers({
-    user
+const reducers = combineReducers({
+    user,
+    flashMessages
 });
 
 export default reducers;

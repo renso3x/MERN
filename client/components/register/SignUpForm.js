@@ -1,11 +1,12 @@
 import React from 'react';
-
 import axios from 'axios';
+import { browserHistory } from 'react-router';
 
 class SignUpForm extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {errors: {}}
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -13,15 +14,24 @@ class SignUpForm extends React.Component {
     e.preventDefault();
     const { email, password, confirm_password } = this.refs;
 
-    if(password.value != confirm_password.value) {
-      console.log('Password Mismatch');
-      return;
-    }
-
     const user = {};
     user.email = email.value;
     user.password = password.value;
-    this.props.userSignUpRequest(user);
+    user.confirm_password = confirm_password.value;
+
+    this.props.userSignUpRequest(user)
+      .then((resp) => {
+        this.props.addFlashMessage({
+          type:'success',
+          text: 'You have successfully registered!'
+        })
+
+        browserHistory.push('/');
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({errors: err})
+      })
   }
 
 
