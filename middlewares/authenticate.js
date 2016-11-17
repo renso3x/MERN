@@ -14,6 +14,7 @@ var authenticate = function(req, res, next) {
 
     if (token) {
         jwt.verify(token, config.jwtSecret, function(err, decoded) {
+
             if( err ) {
                 res.status(401).json({error: 'failed to authenticate.'});
             } else {
