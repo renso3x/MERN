@@ -20,11 +20,16 @@ class Users extends React.Component {
     }
 
     componentWillMount() {
-        this.props.getAllUsers();
+        this.props.fetchPosts();
     }
 
     render() {
         const { users } = this.props;
+
+        if(!users) {
+            return <div className="container"><h1>Users</h1><h3>Loading...</h3></div>
+        }
+
         return(
             <table class="table">
                 <thead>
@@ -35,14 +40,13 @@ class Users extends React.Component {
                 </thead>
                 <tbody>
                     {
-                        users ?
                         users.map(user => {
                             return <UserList
                                 key={user._id}
                                 id={user._id}
                                 email={user.email}
                             />
-                        }) : null
+                        })
                     }
                 </tbody>
             </table>
@@ -56,4 +60,14 @@ const mapStateToProps = (state) => {
     }
 }
 
-export default connect(mapStateToProps, { getAllUsers })(Users);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchPosts: () => {
+            dispatch(getAllUsers()).then((response) => {
+                !response.error ? dispatch(fetchUsers(response.data.user)) : null;
+            });
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Users);
