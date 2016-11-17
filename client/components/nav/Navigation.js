@@ -15,6 +15,7 @@ class Navigation extends React.Component {
     )
     const authLinks = (
       <ul class="nav navbar-nav navbar-right">
+        <li><Link to="users">Users</Link></li>
         <li><a onClick={()=> {
           this.props.logout();
         }}>Logout</a></li>

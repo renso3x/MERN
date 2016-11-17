@@ -7,10 +7,11 @@ var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var bcrypt = require('bcrypt');
 
+var authenticate = require('../middlewares/authenticate');
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
+router.get('/', authenticate, function(req, res, next) {
+    res.status(201).json({user: req.currentUser });
 });
 
 function validateInput(data) {
