@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { userSignIn } from '../../actions/signin';
 
+import { browserHistory } from 'react-router';
+
 import LoginForm from './LoginForm';
 
 class Login extends React.Component {
@@ -28,7 +30,7 @@ class Login extends React.Component {
 
         this.props.userSignIn(user)
             .then(resp => {
-                console.log(resp)
+                browserHistory.push('/');
             })
             .catch(err => {
                 console.log(err);
