@@ -44,18 +44,23 @@ router.post('/', function(req, res) {
     if(!validation.isValid) {
         res.status(400).json(validation.errors)
     } else {
-        var user = {
-            email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, 10)
-        };
+        User.find({}).exec(function(err, collection) {
+            if(err) {
+                return res.status(500).json({error: err})
+            }
 
-        User.create(user)
-            .then(function(resp) {
+            var user = {
+                email: req.body.email,
+                password: bcrypt.hashSync(req.body.password, 10)
+            };
+
+            User.create(user).then(function(resp) {
                 res.status(200).json(resp);
             })
             .catch(function(err) {
                 res.status(500).json({error: err})
             })
+        });
     }
 });
 

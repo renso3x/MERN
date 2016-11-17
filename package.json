@@ -30,6 +30,7 @@
     "eslint-plugin-react": "^5.0.1",
     "express": "^4.13.4",
     "jade": "~1.11.0",
+    "jsonwebtoken": "^7.1.9",
     "morgan": "~1.7.0",
     "mpromise": "^0.5.5",
     "raven-js": "^2.3.0",

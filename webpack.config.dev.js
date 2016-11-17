@@ -36,5 +36,9 @@ module.exports = {
                 loader: 'style-loader!css-loader!stylus-loader'
             }
         ]
+    },
+    node: {
+        net: 'empty',
+        dns: 'empty'
     }
 };

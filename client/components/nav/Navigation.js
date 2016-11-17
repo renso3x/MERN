@@ -20,7 +20,7 @@ class Navigation extends React.Component {
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                   <ul class="nav navbar-nav navbar-right">
                     <li><Link to="signup">Register</Link></li>
-                    <li><Link to="signin">Login</Link></li>
+                    <li><Link to="login">Login</Link></li>
                   </ul>
                 </div>
               </div>

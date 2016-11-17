@@ -2,6 +2,7 @@ module.exports = function(app) {
     //route
     app.use('/', require('../routes/index'));
     app.use('/api/users', require('../routes/users'));
+    app.use('/auth', require('../routes/auth'));
 
 
     // catch 404 and forward to error handler

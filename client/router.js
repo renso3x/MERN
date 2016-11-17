@@ -2,12 +2,22 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
+import jwt from 'jsonwebtoken';
+
 import store from './store';
+
+import setAuthorizationToken from './utils/setAuthorizationToken';
+import { setCurrentUser } from './actions/signin';
 
 import Greeting from './components/home';
 import Main from './components/main';
 import SignUp from './components/register/SignUp';
-import SignIn from './components/auth/SignIn';
+import Login from './components/login/Login';
+
+if(localStorage.jwtToken) {
+    setAuthorizationToken(localStorage.jwtToken);
+    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)))
+}
 
 class AppRoute extends React.Component {
     render() {
@@ -17,7 +27,7 @@ class AppRoute extends React.Component {
                     <Route path="/" component={Main}>
                         <IndexRoute component={Greeting}/>
                         <Route path="signup" component={SignUp}/>
-                        <Route path="signin" component={SignIn}/>
+                        <Route path="login" component={Login}/>
                     </Route>
                 </Router>
             </Provider>

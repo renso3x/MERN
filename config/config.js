@@ -5,11 +5,13 @@ module.exports = {
     development: {
         db: 'mongodb://localhost/activityoverlord',
         rootPath: rootPath,
-        port: process.env.PORT || 9090
+        port: process.env.PORT || 9090,
+        jwtSecret: 'somesecretkey'
     },
     production: {
         db: 'mongodb://multivision:multivision@ds017173.mlab.com:17173/multivision',
         rootPath: rootPath,
-        port: process.env.PORT || 80
+        port: process.env.PORT || 80,
+        jwtSecret: 'somesecretkey'
     }
 }
