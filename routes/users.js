@@ -3,6 +3,11 @@ var router = express.Router();
 var validator = require('validator');
 var _ = require('underscore');
 
+var mongoose = require('mongoose');
+var User = mongoose.model('User');
+var bcrypt = require('bcrypt');
+
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     res.send('respond with a resource');
@@ -37,10 +42,21 @@ router.post('/', function(req, res) {
     var validation = validateInput(req.body);
 
     if(!validation.isValid) {
-        return res.status(500).json({errors: validation.errors})
-    }
+        res.status(400).json(validation.errors)
+    } else {
+        var user = {
+            email: req.body.email,
+            password: bcrypt.hashSync(req.body.password, 10)
+        };
 
-    res.status(200).json({success: 'Successfully sign up!'});
+        User.create(user)
+            .then(function(resp) {
+                res.status(200).json(resp);
+            })
+            .catch(function(err) {
+                res.status(500).json({error: err})
+            })
+    }
 });
 
 module.exports = router;
